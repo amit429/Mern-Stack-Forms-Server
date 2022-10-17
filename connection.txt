@@ -1,0 +1,3 @@
+vs code : mongodb+srv://Amit:<password>@cluster0.orcgx70.mongodb.net/test
+
+app connection : mongodb+srv://Amit:<password>@cluster0.orcgx70.mongodb.net/?retryWrites=true&w=majority
