@@ -1,6 +1,8 @@
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
+// Load env vars
+
 
 const db = process.env.DATABASE
 
