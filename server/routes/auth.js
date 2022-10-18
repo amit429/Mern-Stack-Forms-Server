@@ -187,6 +187,7 @@ routes.get("/query", async (req, res) => {
     try{
         const contactData = await Contact.find();
         res.send(contactData);
+        //console.log(contactData);
     }
     catch{
         console.log(err);
@@ -219,7 +220,7 @@ routes.post("/sign-in", async(req,res)=>{
             });
             
             if(!isMatch){
-                res.status(400).json({error:"Invalid Credentials"});
+                res.status(401).json({error:"Invalid Credentials"});
             }
             else{
                 res.json({message:"User Signed In Successfully"});

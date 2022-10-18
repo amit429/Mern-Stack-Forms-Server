@@ -27,25 +27,25 @@ const port = 5000;
 //middle ware is used to check if the user is logged in or not and display the data accordingly
 //Middleware are functions having access to the request and response objects and the next function in the express execution cycle 
 
-app.get('/', (req,res)=>{
-    res.send("Landing Page");
-})
+// app.get('/', (req,res)=>{
+//     res.send("Landing Page");
+// })
 
-app.get('/About-ngo', (req,res)=>{
-    res.send("About-ngo Page");
-})
+// app.get('/About-ngo', (req,res)=>{
+//     res.send("About-ngo Page");
+// })
 
-app.get('/Contact-ngo', (req,res)=>{
-    res.send("Contact-ngo Page");
-})
+// app.get('/Contact-ngo', (req,res)=>{
+//     res.send("Contact-ngo Page");
+// })
 
-app.get('/Donate', (req,res)=>{
-    res.send("Donate Page");
-})
+// app.get('/Donate', (req,res)=>{
+//     res.send("Donate Page");
+// })
 
-app.get('/Events', (req,res)=>{
-    res.send("Events Page");
-})
+// app.get('/Events', (req,res)=>{
+//     res.send("Events Page");
+// })
 
 app.listen(port, () => {
     console.log(`Server running on port: ${port}`);
