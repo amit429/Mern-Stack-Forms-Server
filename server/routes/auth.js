@@ -4,60 +4,15 @@ const User = require("../models/Userschema");
 const Contact = require("../models/Contactschema");
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
-
+const cookie = require('cookie-parser');
+const authenticate = require('../middleware/authenticate');
 
 
 routes.get('/', (req, res) => {
     res.send("Landing Page with auth");
 })
 
-// Send data to the server using promises
 
-// routes.post('/register', (req, res) => {
-//     const {
-//         Fullname,
-//         Email,
-//         Password,
-//         DOB,
-//         Gender
-//     } = req.body;
-
-//     if (!Fullname || !Email || !Password || !DOB || !Gender) {
-//         return res.status(422).json({
-//             error: "Please fill all the fields"
-//         });
-//     }
-
-//     //sending data to the database with promises
-//     User.findOne({
-//         Email: Email
-//     }).then((userExist) => { //findOne is used to find the data in the database
-//         if (userExist) { //in findone syntax , left side is the data in the database and right side is the data entered by the user
-//             return res.status(422).json({
-//                 error: "Email already exists"
-//             });
-//         }
-
-//         const user = new User({
-//             Fullname,
-//             Email,
-//             Password,
-//             DOB,
-//             Gender
-//         })
-
-//         user.save().then(()=>{
-//             res.status(201).json({message: "User registered successfully"});
-//         }).catch((err)=>{
-//             res.status(500).json({error: "Failed to register"});
-//             console.log(err);
-//         })
-//     }).catch((err) => {
-//         console.log(err);
-//     })
-// })
-
-//Sending Data to the database with async await
 routes.post("/register", async (req, res) => {
 
     const {
@@ -183,10 +138,11 @@ routes.post("/contact", async (req, res) => {
 })
 
 //Query Page
-routes.get("/query", async (req, res) => {
+routes.get("/query", async (req, res,err) => {
     try{
-        const contactData = await Contact.find();
+        const contactData = await Contact.findOne();
         res.send(contactData);
+        res.send("Query Page");
         //console.log(contactData);
     }
     catch{
@@ -233,6 +189,34 @@ routes.post("/sign-in", async(req,res)=>{
         console.log(err);
     }
 })
+
+//Profile Page
+
+routes.get("/profile" , authenticate,(req,res)=>{
+    try{
+        //console.log(req.rootUser);
+        res.send(req.rootUser);
+    }
+    catch(err){
+        console.log(err);
+    }
+})
+
+//Home Page
+routes.get("/home", authenticate, (req, res) => {
+   try{
+       res.send(req.rootUser);
+   }
+    catch(err){
+        console.log(err);
+    }
+});
+
+//Logout Page
+routes.get("/logout", (req,res)=>{
+    res.clearCookie("jwtoken",{path:"/"});
+    res.status(200).send("User Logged Out");
+});
 
 
 
